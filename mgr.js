@@ -72,18 +72,6 @@ define(['managerAPI',
             header: 'Welcome'
         }],
 
-        consent1: [{
-            type:'message',
-            buttonText: 'I acknowledge'
-        }],
-
-        consent: [{
-            inherit: 'consent1',
-            name: 'consent',
-            templateUrl: 'consent.jst',
-            title: 'Consent',
-            header: 'Consent'
-        }],
         raceiat_instructions: [{
             inherit: 'instructions',
             name: 'raceiat_instructions',
@@ -196,7 +184,6 @@ define(['managerAPI',
         {
             mixer:'wrapper',
             data:[
-                {inherit: 'consent'},
                 {inherit: 'studentID'},
                 {inherit: 'demographics'},
                 {mixer:'random',
