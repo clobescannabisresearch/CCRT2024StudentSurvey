@@ -18,7 +18,7 @@ define(['questAPI','underscore'], function(Quest,_){
         autoFocus:true, 
         header: 'Demographics',
         numbered: false,
-        progressBar: isTouch ? 'Page <%= pagesMeta.number %> out of 8' : 'Page <%= pagesMeta.number %> out of 8'
+        progressBar: isTouch ? 'Page <%= pagesMeta.number %> out of 7' : 'Page <%= pagesMeta.number %> out of 7'
     });
 
     /**
@@ -73,31 +73,11 @@ define(['questAPI','underscore'], function(Quest,_){
     /**
 	* Actual questions
 	*/
-    API.addQuestionsSet('birthMonth',{
-        inherit: 'singleChoice',
-        style:'multiButtons',
-        name: 'birthmonth',
-        stem: 'What is your birth month?',
-        answers: [
-            {text:'January',value:1},
-            {text:'February',value:2},
-            {text:'March',value:3},
-            {text:'April',value:4},
-            {text:'May',value:5},
-            {text:'June',value:6},
-            {text:'July',value:7},
-            {text:'August',value:8},
-            {text:'September',value:9},
-            {text:'October',value:10},
-            {text:'November',value:11},
-            {text:'December',value:12}
-        ]
-    });
-
+	
     API.addQuestionsSet('age',{
         inherit:'singleChoicedrop',
         name:'age',
-        stem:'How old are you?',
+        stem:'What is your current age?',
         numericValues:true,
         answers: [18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100]
     });
@@ -105,7 +85,7 @@ define(['questAPI','underscore'], function(Quest,_){
     API.addQuestionsSet('genderIdentity',{
         inherit: 'singleChoice',
         name: 'genderIdentity',
-        stem: 'What gender do you identify as',
+        stem: 'What gender do you identify as?',
         answers: [
             {text:'Male',value:1},
             {text:'Female',value:2}, 
@@ -117,7 +97,7 @@ define(['questAPI','underscore'], function(Quest,_){
     API.addQuestionsSet('genderOther',{
         inherit:'text',
         name:'genderOther',
-        stem:'If \'Other\' please specify'
+        stem:'If \'Other\' please specify.'
     });
 
     API.addQuestionsSet('race',{
@@ -140,11 +120,11 @@ define(['questAPI','underscore'], function(Quest,_){
     API.addQuestionsSet('raceOther',{
         inherit:'text',
         name:'raceOther',
-        stem:'If \'Other\' please specify'
+        stem:'If \'Other\' please specify.'
     });
 
     API.addQuestionsSet('major',{
-        inherit: 'singleChoice',
+        inherit: 'multiChoice',
         name: 'major',
         stem: 'What is your major?',
         answers: [
@@ -166,7 +146,7 @@ define(['questAPI','underscore'], function(Quest,_){
     API.addQuestionsSet('majorOther',{
         inherit:'text',
         name:'majorOther',
-        stem:'If \'Other/Multiple\' please specify'
+        stem:'If \'Other/Multiple\' please specify.'
     });
 
     API.addQuestionsSet('hlthFuture', {
@@ -192,7 +172,7 @@ define(['questAPI','underscore'], function(Quest,_){
     API.addQuestionsSet('hlthFutureOther',{
         inherit:'text',
         name:'hlthFutureOther',
-        stem:'If \'Other\' please specify'
+        stem:'If \'Other\' please specify.'
     });
 
     API.addQuestionsSet('hlthWork', {
@@ -209,7 +189,7 @@ define(['questAPI','underscore'], function(Quest,_){
     API.addQuestionsSet('occuSelf',{
         inherit: 'multiChoice',
         name: 'occuSelf',
-        stem: 'If yes, have you ever worked in any of these roles? (check all that apply).',
+        stem: 'Which of the following roles have you currently or previously held?(check all that apply).',
         numericValues:false,
         answers: [
             {text:'Certified Nursing Assitant', value:1},
@@ -228,7 +208,7 @@ define(['questAPI','underscore'], function(Quest,_){
     API.addQuestionsSet('occuSelfOther',{
         inherit:'text',
         name:'occuSelfOther',
-        stem:'If \'Other\' please specify'
+        stem:'If \'Other\' please specify.'
     });
 
     API.addQuestionsSet('workExp',{
@@ -310,7 +290,7 @@ define(['questAPI','underscore'], function(Quest,_){
         {
             inherit:'basicPage',
             questions:[
-                {inherit:'birthMonth'},
+               //{inherit:'birthMonth'},
                 {inherit:'age'}
             ]
         },
@@ -367,13 +347,7 @@ define(['questAPI','underscore'], function(Quest,_){
                         {inherit:'occuSelf'},
                         {inherit:'occuSelfOther'}
                     ],
-                },             
-            ],
-        },
-        {
-            inherit: 'basicPage',
-            questions: [
-                // minor occupation
+                }, 
                 {
                     mixer:'branch',
                     remix:true,
@@ -381,9 +355,16 @@ define(['questAPI','underscore'], function(Quest,_){
                     data: [
                         {inherit:'workExp'}
                     ]
-                },
-            ]
+                },            
+            ],
         },
+       /* {
+            inherit: 'basicPage',
+            questions: [
+                // minor occupation
+                
+            ]
+        },*/
         {
             inherit:'basicPage',
             questions: [{inherit:'cannPersonal'}]
@@ -394,7 +375,7 @@ define(['questAPI','underscore'], function(Quest,_){
         {
             inherit:'basicPage',
             questions:[
-                {inherit:'birthMonth'},
+                //{inherit:'birthMonth'},
                 {inherit:'age'}
             ]
         },
@@ -451,13 +432,7 @@ define(['questAPI','underscore'], function(Quest,_){
                         {inherit:'occuSelf'},
                         {inherit:'occuSelfOther'}
                     ],
-                },            
-            ],
-        },
-        {
-            inherit: 'basicPage',
-            questions: [
-                // minor occupation
+                }, 
                 {
                     mixer:'branch',
                     remix:true,
@@ -465,9 +440,16 @@ define(['questAPI','underscore'], function(Quest,_){
                     data: [
                         {inherit:'workExp'}
                     ]
-                },
-            ]
+                },            
+            ],
         },
+       /* {
+            inherit: 'basicPage',
+            questions: [
+                // minor occupation
+                
+            ]
+        },*/
         {
             inherit:'basicPage',
             questions: [{inherit:'cannPersonal'}]
