@@ -43,6 +43,13 @@ define(['questAPI','underscore'], function(Quest,_){
         helpText: 'Tip: For quick response, click to select your answer, and then click again to submit.'
     });
 
+
+API.addQuestionSet('singleChoice1'. {
+	inherit:'baiscQ',
+	type:'selectOne',
+	autoSubmit:false
+});
+
     API.addQuestionsSet('text',{
         inherit: 'basicQ',
         type: 'text',
@@ -139,14 +146,14 @@ define(['questAPI','underscore'], function(Quest,_){
             {text:'Radiologic Technology',value:9},
             {text:'Sports Medicine',value:10},
             {text:'Undeclared',value:11},
-            {text:'Other/Multiple', value:0}
+            {text:'Other', value:0}
         ]
     });
 
     API.addQuestionsSet('majorOther',{
         inherit:'text',
         name:'majorOther',
-        stem:'If \'Other/Multiple\' please specify.'
+        stem:'If \'Other\' please specify.'
     });
 
     API.addQuestionsSet('hlthFuture', {
@@ -164,7 +171,7 @@ define(['questAPI','underscore'], function(Quest,_){
             {text:'Public Health', value:8},
             {text:'Radiology', value:9},
             {text:'Researcher', value:10},
-            {text:'Radiology technologist', value:11},
+            {text:'Radiology Technologist', value:11},
             {text:'Other', value:0}
         ]
     });
@@ -176,7 +183,7 @@ define(['questAPI','underscore'], function(Quest,_){
     });
 
     API.addQuestionsSet('hlthWork', {
-        inherit:'singleChoice',
+        inherit:'singleChoice1',
         name:'hlthWork',
         stem:'Do you currently or have you ever worked in healthcare?',
         answers:[
