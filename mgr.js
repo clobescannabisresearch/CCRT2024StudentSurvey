@@ -200,7 +200,7 @@ define(['managerAPI',
             ],
         },
         
-		{inherit: 'uploading'},
+	{inherit: 'uploading'},
         {inherit: 'lastpage'},
         {inherit: 'redirect'}
     ]);
