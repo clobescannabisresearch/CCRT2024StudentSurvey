@@ -18,7 +18,7 @@ define(['questAPI','underscore'], function(Quest,_){
         autoFocus:true, 
         header: 'Demographics',
         numbered: false,
-        progressBar: isTouch ? 'Page <%= pagesMeta.number %> out of 7' : 'Page <%= pagesMeta.number %> out of 7'
+        progressBar: isTouch ? 'Page <%= pagesMeta.number %> out of 6' : 'Page <%= pagesMeta.number %> out of 6'
     });
 
     /**
@@ -43,12 +43,11 @@ define(['questAPI','underscore'], function(Quest,_){
         helpText: 'Tip: For quick response, click to select your answer, and then click again to submit.'
     });
 
-
-API.addQuestionSet('singleChoice1'. {
-	inherit:'baiscQ',
-	type:'selectOne',
-	autoSubmit:false
-});
+    API.addQuestionsSet('singleChoice1',{
+        inehrit: 'basicQ',
+        type: 'selectOne',
+        autoSubmit:false
+    });
 
     API.addQuestionsSet('text',{
         inherit: 'basicQ',
@@ -80,7 +79,7 @@ API.addQuestionSet('singleChoice1'. {
     /**
 	* Actual questions
 	*/
-	
+
     API.addQuestionsSet('age',{
         inherit:'singleChoicedrop',
         name:'age',
@@ -156,22 +155,36 @@ API.addQuestionSet('singleChoice1'. {
         stem:'If \'Other\' please specify.'
     });
 
-    API.addQuestionsSet('hlthFuture', {
+    API.addQuestionsSet('hlthCareer', {
         inherit: 'singleChoice',
-        name:'hlthFuture',
-        stem:'What area of healthcare are you looking to go into?',
+        name:'hlthCareer',
+        autoSubmit:false,
+        stem:'Are you planning on pursuing a career in healthcare or a related field?',
         answers: [
-            {text:'Administration', value:1},
-            {text:'Nursing', value:2},
-            {text:'Occupational Therapy', value:3},
-            {text:'Physical Therapy', value:4},
-            {text:'Physician', value:5},
-            {text:'Physician Assistant/Associate', value:6},
-            {text:'Psychology', value:7},
-            {text:'Public Health', value:8},
-            {text:'Radiology', value:9},
-            {text:'Researcher', value:10},
-            {text:'Radiology Technologist', value:11},
+            {text:'Yes', value:1},
+            {text:'Maybe', value:2},
+            {text:'No', Value:0}
+        ]
+
+    });
+
+    API.addQuestionsSet('hlthFuture', {
+        inherit: 'multiChoice',
+        name:'hlthFuture',
+        stem:'What area(s) of healthcare are you looking to go into?',
+        answers: [
+            {text:'Administrator', value:1},
+            {text:'Clinical Psychologist', value:2},
+            {text:'Social Worker', value:3},
+            {text:'Mental health Therapist (MFT, LMFT, LPC, etc.)', value:4},
+            {text:'Nurse/Nurse Practitioner', value:5},
+            {text:'Occupational Therapist', value:6},
+            {text:'Physical Therapist', value:7},
+            {text:'Physician', value:8},
+            {text:'Physician Assistant/Associate', value:9},
+            {text:'Public Health Professional', value:10},
+            {text:'Researcher', value:11},
+            {text:'Radiologic Technologist', value:12},
             {text:'Other', value:0}
         ]
     });
@@ -197,7 +210,6 @@ API.addQuestionSet('singleChoice1'. {
         inherit: 'multiChoice',
         name: 'occuSelf',
         stem: 'Which of the following roles have you currently or previously held?(check all that apply).',
-        numericValues:false,
         answers: [
             {text:'Certified Nursing Assitant', value:1},
             {text:'Emergency Medical Technician', value:2},
@@ -224,7 +236,7 @@ API.addQuestionSet('singleChoice1'. {
         name: 'workExp',
         stem: 'How long have you worked in healthcare?',
         answers:[
-            {text:'0', value:0},
+            {text:'Less than 1 month', value:0},
             {text:'1 month', value:101},
             {text:'2 months', value:102},
             {text:'3 months', value:103},
@@ -297,13 +309,7 @@ API.addQuestionSet('singleChoice1'. {
         {
             inherit:'basicPage',
             questions:[
-               //{inherit:'birthMonth'},
-                {inherit:'age'}
-            ]
-        },
-        {
-            inherit: 'basicPage',
-            questions: [
+                {inherit:'age'},
                 {inherit: 'genderIdentity'},
                 {
                     mixer:'branch',
@@ -312,16 +318,19 @@ API.addQuestionSet('singleChoice1'. {
                     data: [
                         {inherit:'genderOther'}
                     ]
-                },
+                }
+                  
             ]
         },
-                {
+
+        {
             inherit: 'basicPage',
             questions: [ 
                 {inherit:'race', autoSubmit:true},
                 {inherit:'raceOther'}
             ]
         },
+
         {
             inherit: 'basicPage',
             questions:[
@@ -329,19 +338,38 @@ API.addQuestionSet('singleChoice1'. {
                 {inherit:'majorOther'}
             ]
         },
+
         {inherit: 'basicPage',
             questions:[
-                {inherit: 'hlthFuture'},
+                {inherit:'hlthCareer'},
                 {
-                    mixer:'branch',
+                    mixer:'multiBranch',
                     remix:true,
-                    conditions:[{compare: 'questions.hlthFuture.response',to:0}],
-                    data: [
-                        {inherit:'hlthFutureOther'}
-                    ]
-                },
+                    branches:[
+                        {
+                            conditions:[
+                                {compare: 'questions.hlthCareer.response',to:1}
+                            ],
+                            data: [
+                                {inherit:'hlthFuture'},
+                                {inherit:'hlthFutureOther'}
+                            ]
+                        },
+                    
+                        {
+                            conditions:[
+                                {compare:'questions.hlthCareer.response', to:2}
+                            ],
+                            data: [
+                                {inherit:'hlthFuture'},
+                                {inherit:'hlthFutureOther'}
+                            ]
+                        }
+                        ]
+                    }
             ]
         },
+
         {
             inherit:'basicPage',
             questions:[
@@ -365,13 +393,7 @@ API.addQuestionSet('singleChoice1'. {
                 },            
             ],
         },
-       /* {
-            inherit: 'basicPage',
-            questions: [
-                // minor occupation
-                
-            ]
-        },*/
+
         {
             inherit:'basicPage',
             questions: [{inherit:'cannPersonal'}]
@@ -382,13 +404,7 @@ API.addQuestionSet('singleChoice1'. {
         {
             inherit:'basicPage',
             questions:[
-                //{inherit:'birthMonth'},
-                {inherit:'age'}
-            ]
-        },
-        {
-            inherit: 'basicPage',
-            questions: [
+                {inherit:'age'},
                 {inherit: 'genderIdentity'},
                 {
                     mixer:'branch',
@@ -397,10 +413,12 @@ API.addQuestionSet('singleChoice1'. {
                     data: [
                         {inherit:'genderOther'}
                     ]
-                },
+                }
+                  
             ]
         },
-                {
+        
+        {
             inherit: 'basicPage',
             questions: [ 
                 {inherit:'race', autoSubmit:true},
@@ -416,15 +434,32 @@ API.addQuestionSet('singleChoice1'. {
         },
         {inherit: 'basicPage',
             questions:[
-                {inherit: 'hlthFuture'},
+                {inherit:'hlthCareer'},
                 {
-                    mixer:'branch',
+                    mixer:'multiBranch',
                     remix:true,
-                    conditions:[{compare: 'questions.hlthFuture.response',to:0}],
-                    data: [
-                        {inherit:'hlthFutureOther'}
-                    ]
-                },
+                    branches:[
+                        {
+                            conditions:[
+                                {compare: 'questions.hlthCareer.response',to:1}
+                            ],
+                            data: [
+                                {inherit:'hlthFuture'},
+                                {inherit:'hlthFutureOther'}
+                            ]
+                        },
+                    
+                        {
+                            conditions:[
+                                {compare:'questions.hlthCareer.response', to:2}
+                            ],
+                            data: [
+                                {inherit:'hlthFuture'},
+                                {inherit:'hlthFutureOther'}
+                            ]
+                        }
+                        ]
+                    }
             ]
         },
         {
