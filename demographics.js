@@ -85,7 +85,7 @@ define(['questAPI','underscore'], function(Quest,_){
         inherit:'singleChoicedrop',
         name:'age',
         stem:'What is your current age?',
-        numericValues:true,
+        helpText: 'If under the age of 18 please exit the survey now.',
         answers: [
             {text:'18', value:18},
             {text:'19',value: 19},
