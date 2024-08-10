@@ -76,16 +76,15 @@ define(['questAPI'], function(Quest){
     API.addQuestionsSet('therm',{
         inherit: 'basicSelect',
         answers: [
-            
-            {text:'Strongly Supportive', value:9},
-            {text:'Moderately Supportive', value:8},
-            {text:'Somewhat Supportive', value:7},
-            {text:'Slightly Supportive', value:6},
-            {text:'Neither Supportive nor Against', value:5},
-            {text:'Slightly Against', value:4},
-            {text:'Somewhat Against', value:3},
+            {text:'Strongly Against', value:1},
             {text:'Moderately Against', value:2},
-            {text:'Strongly Against', value:1}
+            {text:'Somewhat Against', value:3},
+            {text:'Slightly Against', value:4},
+            {text:'Neither Supportive nor Against', value:5},
+            {text:'Slightly Supportive', value:6},
+            {text:'Somewhat Supportive', value:7},
+            {text:'Moderately Supportive', value:8},
+            {text:'Strongly Supportive', value:9},
         ]
     });
 

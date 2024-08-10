@@ -52,8 +52,9 @@ define(['questAPI','underscore'], function(Quest,_){
     API.addQuestionsSet('text',{
         inherit: 'basicQ',
         type: 'text',
+        dflt:'n/a',
         noSubmit:false,
-        required: false
+        required: true
     });
 
     API.addQuestionsSet('singleChoicedrop',{
@@ -317,7 +318,7 @@ define(['questAPI','underscore'], function(Quest,_){
 
     API.addQuestionsSet('workExp',{
         inherit: 'singleChoicedrop',
-        required:false,
+        required:true,
         name: 'workExp',
         stem: 'How long have you worked in healthcare?',
         answers:[
